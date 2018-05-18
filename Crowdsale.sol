@@ -53,35 +53,34 @@ contract Crowdsale is Ownable {
         Date4 = newDate4; 
   }
     
-    function createTokens() public saleIsOn payable {
-        multisig.transfer(msg.value);
-        uint tokens = rate.mul(msg.value).div(1 ether);
-        uint bonusTokens = 0;
+        function createTokens() public saleIsOn payable {
+            multisig.transfer(msg.value);
+            uint tokens = rate.mul(msg.value).div(1 ether);
+            uint bonusTokens = 0;
    
-    if(block.timestamp < start + (Date1 * 1 days)) { 
-    bonusTokens = tokens.div(5).mul(2); 
-  } 
-    else if(block.timestamp >= start + (Date1 * 1 days) && block.timestamp < start + (Date2 *1 days)) { 
-    bonusTokens = tokens.div(10).mul(3); 
-  } 
-    else if(block.timestamp >= start +  (Date2*1 days) && block.timestamp < start + (Date3*1 days)) { 
-    bonusTokens = tokens.div(5);  
-  }
-    else if(block.timestamp >= start + (Date3*1 days) && block.timestamp < start + (Date4* 1 days)) { 
-    bonusTokens = tokens.div(10); 
-  }
+            if(block.timestamp < start + (Date1 * 1 days)) { 
+                bonusTokens = tokens.div(5).mul(2); 
+            } 
+            else if(block.timestamp >= start + (Date1 * 1 days) && block.timestamp < start + (Date2 *1 days)) { 
+                bonusTokens = tokens.div(10).mul(3); 
+            } 
+            else if(block.timestamp >= start +  (Date2*1 days) && block.timestamp < start + (Date3*1 days)) { 
+                bonusTokens = tokens.div(5);  
+            }
+            else if(block.timestamp >= start + (Date3*1 days) && block.timestamp < start + (Date4* 1 days)) { 
+                bonusTokens = tokens.div(10); 
+            }
     
-    uint tokensWithBonus = tokens.add(bonusTokens); 
-    token.transfer(msg.sender, tokensWithBonus); 
-    uint restrictedTokens = tokensWithBonus.mul(8).div(10); 
-    token.transfer(restricted, restrictedTokens);
-    uint rerestrictedTokens = tokensWithBonus.mul(2).div(10); 
-    token.transfer(multisig, rerestrictedTokens);
-
-  }
+        uint tokensWithBonus = tokens.add(bonusTokens); 
+            token.transfer(msg.sender, tokensWithBonus); 
+        uint restrictedTokens = tokensWithBonus.mul(8).div(10); 
+            token.transfer(restricted, restrictedTokens);
+        uint rerestrictedTokens = tokensWithBonus.mul(2).div(10); 
+            token.transfer(multisig, rerestrictedTokens);
+    }
 
     function() external payable {
-    createTokens();
-  }
+        createTokens();
+    }
     
 }
