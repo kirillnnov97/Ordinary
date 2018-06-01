@@ -1,4 +1,6 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
+
+
 contract Crowdsale is Ownable {
     
     using SafeMath for uint;
